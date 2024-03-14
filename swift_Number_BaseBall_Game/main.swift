@@ -25,11 +25,12 @@ struct BaseballGame {
                 let inputAns = input.map { Int(String($0))! }
                 // 입력된 값을 Int를 받는 배열로 mapping
                 
-                if inputAns.count == 1 || inputAns.contains(1...3) {
+                if inputAns.count == 1 && ( inputAns.contains(1) || inputAns.contains(2) || inputAns.contains(3) ) {
                 // 보기에서 1 ~ 3 만 입력받기 위한 조건
                     if inputAns[0] == 1 {
                         start()
                     } // 선택지 1번 선택시 -> start() 실행
+                    
                     else if inputAns[0] == 2 {
                         gameSuccesLog.append(gameSuccess)
                         
@@ -43,13 +44,23 @@ struct BaseballGame {
                             print("Game 기록이 없습니다...")
                         }
                     } // 선택지 2번 선택시 -> 전역변수 gameCounterLog과 gameCounter를 활용한 게임 기록 출력
+                    
+                    else if inputAns[0] == 3 {
+                        // case가 아닌 if를 사용하였기에, 가독성이 떨어져 구분하기 편하게 else가 아닌 else if를 사용
+                        print("< 숫자 야구 게임을 종료합니다 >")
+                        
+                        gameSuccesLog = []
+                        gameCounterLog = []
+                        
+                        break
+                    } // 선택지 2번 선택시 -> Game 종료 및 기록 초기화
                 }
                 else {
-                    // print("올바르지 않은 입력값입니다 - 보기의 숫자만 입력해주세요( 1 ~ 3 )")
+                    print("올바르지 않은 입력값입니다 - 보기의 숫자만 입력해주세요( 1 ~ 3 )")
                 }
             }
             else {
-                // print("올바르지 않은 입력값입니다 - 숫자만 입력해주세요")
+                print("올바르지 않은 입력값입니다 - 숫자만 입력해주세요")
             }
         }
         
