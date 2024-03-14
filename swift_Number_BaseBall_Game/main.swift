@@ -16,7 +16,6 @@ struct BaseballGame {
         while !isCorrect {
             var IntAns = valueInput()
             
-            
             if valueComparison(answer, IntAns) {
                 print("정답!")
                 isCorrect = true
@@ -43,9 +42,6 @@ struct BaseballGame {
             else if inputAns[0] == inputAns[1] || inputAns[1] == inputAns[2] || inputAns[0] == inputAns[2]{
                 print("올바르지 않은 입력값입니다 - 서로 다른 숫자를 입력해주세요")
             } // 입력받은 수에서 중복되는 수가 있는 경우 검증
-            else if inputAns.contains(0) {
-                print("올바르지 않은 입력값입니다 - 0이 아닌 숫자를 입력해주세요")
-            } // 입력받은 수에서 0이 있는 경우 검증
             return inputAns
         }
         else {
@@ -64,7 +60,7 @@ struct BaseballGame {
         var warningCounter: Int = 0
         
         for i in 0..<valArr.count {
-            if inputArr.count == 3 && inputArr != [0,0,0] && !inputArr.contains(0) {
+            if inputArr.count == 3 && inputArr != [0,0,0] {
             // 에러 요소가 발생시, 카운터 동작 정지 - 3자리 미만 또는 이상, 문자 입력시([0,0,0]), 0을 포함
                 if valArr[i] == inputArr[i] {
                     strikeCounter += 1
@@ -78,7 +74,7 @@ struct BaseballGame {
             }
         } // ball & strike 구분 + 일치하는 값이 없을 때, Nothing을 출력하기 위한 경고 신호 발생
         
-        if inputArr.count == 3 && inputArr != [0,0,0] && !inputArr.contains(0) {
+        if inputArr.count == 3 && inputArr != [0,0,0] {
             if warningCounter != 3 {
                 print("Balls: \(ballCounter), Strikes: \(strikeCounter)")
             }
@@ -86,8 +82,6 @@ struct BaseballGame {
                 print("Nothing")
             }
         } // 입력값과 정답을 비교하여 하나도 일치하지 않을 경우, "Nothing" 출력
-        
-        // warningCounter != 3 ? print("Balls: \(ballCounter), Strikes: \(strikeCounter)") : print("Nothing")
         
         warningCounter = 0
         // 경고 초기화
