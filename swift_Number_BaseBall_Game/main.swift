@@ -98,7 +98,7 @@ struct BaseballGame {
     
     
     func makeAnswer() -> [Int] {
-        let ansMake = Array(1...9)
+        let ansMake = Array(0...9)
         var randomVal: [Int] = []
 
         while randomVal.count < 3 {
@@ -106,7 +106,13 @@ struct BaseballGame {
             let randomNum = ansMake[randomIndex]
             
             if !randomVal.contains(randomNum) {
-                randomVal.append(randomNum)
+                if randomVal.isEmpty {
+                // ⚠️ 맨 처음 배열은 공백이기에 0번째 인덱스로 접근하면 에러 발생
+                    randomVal.append(Int.random(in: 1...9))
+                } // 0번째 인덱스에는 1에서 9까지의 랜덤한 값 추가
+                else {
+                    randomVal.append(randomNum)
+                } // 나머지 인덱스에는 ansMake 배열에서 선택된 값 추가
             } // randomValues에 있는 값이 중복되지 않도록, 없는 값만 배열에 추가
         }
         
