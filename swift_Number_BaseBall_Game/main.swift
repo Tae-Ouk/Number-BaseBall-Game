@@ -1,9 +1,44 @@
 let game = BaseballGame()
-game.start()
-
+//game.start()
+game.startScreen()
 
 
 struct BaseballGame {
+    func startScreen() {
+        var isCorrect = false
+        
+        while !isCorrect {
+            print("환영합니다! 원하시는 번호를 입력해주세요")
+            print("1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기")
+            
+            var input = readLine()!
+        
+            if input.allSatisfy({ $0.isNumber }) {
+                // 입력된 값이 숫자로 구성되어 있는지 검증
+                let inputAns = input.map { Int(String($0))! }
+                // 입력된 값을 Int를 받는 배열로 mapping
+                
+                if inputAns.count == 1 || inputAns.contains(1...3) {
+                // 보기에서 1 ~ 3 만 입력받기 위한 조건
+                    if inputAns[0] == 1 {
+                        start()
+                    } // 선택지 1번 선택시 -> start() 실행
+                }
+                else {
+                    // print("올바르지 않은 입력값입니다 - 보기의 숫자만 입력해주세요( 1 ~ 3 )")
+                }
+            }
+            else {
+                // print("올바르지 않은 입력값입니다 - 숫자만 입력해주세요")
+            }
+        }
+        
+        isCorrect = true
+        // Level 6에서 Game 종료 기능 구현
+    }
+    
+    
+    
     func start() {
         let answer = makeAnswer()
         var isCorrect = false
@@ -19,12 +54,11 @@ struct BaseballGame {
             if valueComparison(answer, IntAns) {
                 print("정답!")
                 isCorrect = true
-            } else {
+            } 
+            else {
                 print("틀렸습니다... 다시 시도해주세요")
             }
         }
-        
-        
     }
     
     
