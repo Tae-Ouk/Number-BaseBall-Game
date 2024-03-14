@@ -1,10 +1,17 @@
-let game = BaseballGame()
+var game = BaseballGame()
 //game.start()
 game.startScreen()
 
 
+
 struct BaseballGame {
-    func startScreen() {
+    var gameSuccess: Int = 0
+    var gameCounter: Int = 0
+    var gameSuccesLog: [Int] = []
+    var gameCounterLog: [Int] = []
+    
+    
+    mutating func startScreen() {
         var isCorrect = false
         
         while !isCorrect {
@@ -23,6 +30,19 @@ struct BaseballGame {
                     if inputAns[0] == 1 {
                         start()
                     } // 선택지 1번 선택시 -> start() 실행
+                    else if inputAns[0] == 2 {
+                        gameSuccesLog.append(gameSuccess)
+                        
+                        if !gameCounterLog.isEmpty || !gameCounterLog.isEmpty {
+                        // ⚠️ 게임 기록이 없어 각각의 Log를 저장하는 배열이 비었을때, i에 해당하는 인덱스를 검색하면 에러 발생
+                            for i in 0..<gameSuccesLog.count {
+                                print("\(i+1)번째 게임 : 시도 횟수 - \(gameCounterLog[i])")
+                            }
+                        }// 따라서 공백 여부 확인하고 Game Log 출력
+                        else {
+                            print("Game 기록이 없습니다...")
+                        }
+                    } // 선택지 2번 선택시 -> 전역변수 gameCounterLog과 gameCounter를 활용한 게임 기록 출력
                 }
                 else {
                     // print("올바르지 않은 입력값입니다 - 보기의 숫자만 입력해주세요( 1 ~ 3 )")
@@ -39,9 +59,10 @@ struct BaseballGame {
     
     
     
-    func start() {
+    mutating func start() {
         let answer = makeAnswer()
         var isCorrect = false
+        var gameCounter: Int = 0
         
         print("Number BaseBall Game 시작!")
         print("숫자를 입력하세요.")
@@ -50,14 +71,23 @@ struct BaseballGame {
         
         while !isCorrect {
             var IntAns = valueInput()
-            
+
             if valueComparison(answer, IntAns) {
                 print("정답!")
+                
                 isCorrect = true
-            } 
+                
+                gameSuccess += 1
+                gameCounter += 1
+                gameCounterLog.append(gameCounter)
+                // Game이 정답으로 끝나면, 기록중이던 gameCounter를 gameCounterLog 배열에 저장
+            }
             else {
                 print("틀렸습니다... 다시 시도해주세요")
+                
+                gameCounter += 1
             }
+            
         }
     }
     
@@ -105,6 +135,7 @@ struct BaseballGame {
                 else if !valArr.contains(inputArr[i]) {
                     warningCounter += 1
                 }
+                
             }
         } // ball & strike 구분 + 일치하는 값이 없을 때, Nothing을 출력하기 위한 경고 신호 발생
         
